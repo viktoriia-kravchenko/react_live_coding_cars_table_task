@@ -9,17 +9,19 @@ import { getFullCar } from './helpers';
 
 export const App: React.FC = () => {
   const [cars] = useState(getFullCar);
-  const [brandName, setBrandName] = useState('');
+  const [query, setQuery] = useState('');
 
-  // const visibleCars
+  const visibleCars = cars.filter(car => (
+    car.brand.toLowerCase().includes(query.toLowerCase())
+  ));
 
   return (
     <div>
       <input
         type="search"
         placeholder="Find by car brand"
-        value={brandName}
-        onChange={(event) => setBrandName(event.target.value)}
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
       />
 
       <select>
@@ -36,7 +38,7 @@ export const App: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {cars.map(car => (
+          {visibleCars.map(car => (
             <tr>
               <td>{car.id}</td>
               <td>{car.brand}</td>
