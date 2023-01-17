@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { getFullCar } from './helpers';
 // import carsFromServer from './api/cars';
 // import colorsFromServer from './api/colors';
 
@@ -7,9 +8,19 @@ import React from 'react';
 // 3. Add ability to filter car by color
 
 export const App: React.FC = () => {
+  const [cars] = useState(getFullCar);
+  const [brandName, setBrandName] = useState('');
+
+  // const visibleCars
+
   return (
     <div>
-      <input type="search" placeholder="Find by car brand" />
+      <input
+        type="search"
+        placeholder="Find by car brand"
+        value={brandName}
+        onChange={(event) => setBrandName(event.target.value)}
+      />
 
       <select>
         <option>Chose a color</option>
@@ -25,24 +36,14 @@ export const App: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Ferarri</td>
-            <td style={{ color: 'red' }}>Red</td>
-            <td>500</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Opel</td>
-            <td style={{ color: 'white' }}>White</td>
-            <td>300</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Audi</td>
-            <td style={{ color: 'black' }}>Black</td>
-            <td>300</td>
-          </tr>
+          {cars.map(car => (
+            <tr>
+              <td>{car.id}</td>
+              <td>{car.brand}</td>
+              <td style={{ color: 'red' }}>{car.color?.name}</td>
+              <td>{car.rentPrice}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
