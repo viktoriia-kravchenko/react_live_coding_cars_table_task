@@ -57,7 +57,7 @@ export const App: React.FC = () => {
         </thead>
         <tbody>
           {visibleCars.map(car => (
-            <tr>
+            <tr key={car.id}>
               <td>{car.id}</td>
               <td>{car.brand}</td>
               <td style={{ color: 'red' }}>{car.color?.name}</td>
